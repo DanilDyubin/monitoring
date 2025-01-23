@@ -1,0 +1,194 @@
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
+const initialState = {
+  imgsIds: [], //'1e3b6309-1fc9-402d-ba67-23822cfcacf1', 'fb5dcafc-e446-4d21-84ca-d09e604ec98f'
+  currentDate: null,
+  items: [],
+  groups: [
+    {
+      id: 0,
+      title: 'Земляные работы',
+      done: 0,
+      deviation: 0,
+      height: 40,
+      progress: true,
+      color: '#FF0000',
+    },
+    {
+      id: 1,
+      title: 'Шпунтовое ограждение',
+      done: 0,
+      deviation: 0,
+      height: 40,
+      progress: false,
+      color: '#00CC96',
+    },
+    {
+      id: 2,
+      title: 'Распорная система',
+      done: 0,
+      deviation: 0,
+      height: 40,
+      progress: true,
+      color: '#0000FF',
+    },
+    {
+      id: 3,
+      title: 'Устройство фундамента',
+      done: 0,
+      deviation: 0,
+      height: 40,
+      progress: true,
+      color: '#FFFF00',
+    },
+    {
+      id: 4,
+      title: 'Монолит',
+      done: 0,
+      deviation: 0,
+      height: 40,
+      progress: true,
+      color: '#00FFFF',
+    },
+    {
+      id: 5,
+      title: 'Кладка',
+      done: 0,
+      deviation: 0,
+      height: 40,
+      progress: false,
+      color: '#FF6692',
+    },
+    {
+      id: 6,
+      title: 'Теплоизоляция',
+      done: 0,
+      deviation: 0,
+      height: 40,
+      progress: true,
+      color: '#A500FF',
+    },
+    {
+      id: 7,
+      title: 'Подсистема фасада',
+      done: 0,
+      deviation: 0,
+      height: 40,
+      progress: true,
+      color: '#00A5FF',
+    },
+    {
+      id: 8,
+      title: 'Облицовка фасада',
+      done: 0,
+      deviation: 0,
+      height: 40,
+      progress: true,
+      color: '#A5FF00',
+    },
+    {
+      id: 9,
+      title: 'Остекление',
+      done: 0,
+      deviation: 0,
+      height: 40,
+      progress: true,
+      color: '#FFA629',
+    },
+    {
+      id: 10,
+      title: 'Благоустройство',
+      done: 0,
+      deviation: 0,
+      height: 40,
+      progress: true,
+      color: '#52CE49',
+    },
+    // {
+    //   id: 11,
+    //   title: 'Работы завершены',
+    //   done: 0,
+    //   deviation: 0,
+    //   height: 40,
+    //   progress: true,
+    //   color: '#B2FFE4',
+    // },
+  ],
+};
+
+export const scheduleSlice = createSlice({
+  name: 'schedule',
+  initialState,
+  reducers: {
+    addImgsIds(state, action) {
+      state.imgsIds = [...state.imgsIds, ...action.payload];
+    },
+    removeImgId(state, action) {
+      state.imgsIds = state.imgsIds.filter((id) => id !== action.payload);
+    },
+    addItem(state, action) {
+      const newItem = action.payload;
+
+      // Находим, есть ли уже item с таким id
+      const existingIndex = state.items.findIndex((item) => item.id === newItem.id);
+
+      if (existingIndex === -1) {
+        // Если нет такого id, то обавляем в конец
+        state.items = [...state.items, newItem];
+      } else {
+        // Удаляем старый item
+        const filtered = state.items.filter((item) => item.id !== newItem.id);
+
+        // И добавляем новый
+        state.items = [...filtered, newItem];
+      }
+
+      // const indexItem = state.items.findIndex((item) => item.id === action.payload.id);
+      // if (indexItem !== -1) {
+      //   state.items[indexItem] = action.payload;
+      //   // state.items = [...state.items, action.payload]; // если пользователь меняет уже существующий item в таймлайне, нужно в items передавать полностью новый массив с новым item (библиотека требует иммутабильности, иначе будут баги)
+      // } else {
+      //   state.items.push(action.payload);
+      //   // state.items = [...state.items, action.payload];
+      // }
+
+      // добавление процентов "выполнено" в поле done
+      const findGroup = state.groups.find((obj) => obj.id === action.payload.id);
+      if (findGroup && state.currentDate && action.payload.start_time && action.payload.end_time) {
+        const { start_time, end_time } = action.payload;
+        const current = state.currentDate;
+
+        // Проверяем границы
+        let donePercent;
+        if (current <= start_time) {
+          donePercent = 0;
+        } else if (current >= end_time) {
+          donePercent = 100;
+        } else {
+          const totalTime = end_time - start_time;
+          const overTime = current - start_time;
+          donePercent = (overTime / totalTime) * 100;
+        }
+
+        findGroup.done = Math.round(donePercent);
+      }
+    },
+    clearItems(state) {
+      state.items = [];
+    },
+    addCurrentDate(state, action) {
+      state.currentDate = action.payload;
+    },
+    clearSchedule() {
+      // state.imgsIds = [];
+      // state.currentDate = null;
+      // state.items = [];
+      // state.groups =
+      return initialState;
+    },
+  },
+});
+
+export const { addItem, addCurrentDate, addImgsIds, removeImgId, clearItems, clearSchedule } =
+  scheduleSlice.actions;
+export default scheduleSlice.reducer;
