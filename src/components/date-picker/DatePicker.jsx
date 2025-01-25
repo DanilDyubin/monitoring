@@ -47,6 +47,7 @@ const DatePicker = () => {
         group: groupId, // обязательно для привязки item к group
         group_title: group.title,
         color: group.color,
+        color_light: group.color_light,
         current_date: currentDate,
         title: `${moment(selected.from).format('DD.MM')} — ${moment(selected.to).format('DD.MM')}`,
         start_time: moment(selected.from).valueOf(),
@@ -54,7 +55,7 @@ const DatePicker = () => {
         itemProps: {
           className: 'bordernone',
           style: {
-            background: group.color,
+            background: group.color_light,
             border: 'none',
           },
         },

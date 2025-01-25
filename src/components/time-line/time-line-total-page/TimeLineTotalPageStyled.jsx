@@ -1,6 +1,7 @@
-import { groupRendererSinglePage } from '../custom-group/CustomGroup';
-import { CustomSidebarHeaderWithoutColls } from '../custom-sidebar-header/CustomSidebarHeader';
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { groupRenderer } from '../custom-group/CustomGroup';
+import { CustomItemTotalPage } from '../custom-items/CustomItems';
+import { CustomSidebarHeader } from '../custom-sidebar-header/CustomSidebarHeader';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOpen, setGroupId } from '../../../redux/slices/calendarSlice';
 import moment from 'moment';
@@ -28,59 +29,23 @@ import '../../trash/style.scss';
 
 moment.locale('ru');
 
-const TimeLineSinglePage = () => {
+const TimeLineTotalPageStyled = () => {
   //   const [groupId, setGroupId] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const currentDate = useSelector((state) => state.report.total.current_date);
-  // const open = useSelector((state) => state.calendar.open);
+  const open = useSelector((state) => state.calendar.open);
+  const sliceItems = useSelector((state) => state.schedule.items);
+  const sliceGroups = useSelector((state) => state.schedule.groups);
   const reportGroups = useSelector((state) => state.report.groupsReport);
   const reportItems = useSelector((state) => state.report.itemsReport);
-  const byImage = useSelector((state) => state.report.byImage);
+  // const filteredItems = reportItems.filter((stage) => stage.start_time !== null);
   const sliceCurrentDate = useSelector((state) => state.schedule.currentDate);
-  const index = useSelector((state) => state.report.index);
-
-  // console.log(`sliceItems - ${JSON.stringify(sliceItems)}`);
-
-  // console.log(JSON.stringify(byImage));
-  const byImageTest = useSelector((state) => state.report.groupsReportByImage);
-  // const groupsByImage = byImageTest[index].stages;
-
-  let groupsByImage = [];
-  if (byImageTest[index]?.stages) {
-    groupsByImage = byImageTest[index].stages;
-  }
-  // const currentImageObj = byImage[2];
-
-  // const groupsByImage = useMemo(() => {
-  //   if (!currentImageObj?.report?.stages) return [];
-  //   return currentImageObj.report.stages.map((stg) => ({
-  //     id: stg.id,
-  //     title: stg.name,
-  //     done: stg.factValue,
-  //     color: stg.color,
-  //     height: 40,
-  //     progress: true,
-  //   }));
-  // }, [currentImageObj]);
+  const currentDate = useSelector((state) => state.report.total.current_date);
+  const total = useSelector((state) => state.report.total);
+  console.log(`total - ${JSON.stringify(total)}`);
 
   const dispatch = useDispatch();
 
   const timelineRef = useRef(null);
-
-  const onVisibleTimeChange = () => {
-    // когда введена дата съемки, перебрасываем пользователя на CustomMarker
-    if (currentDate && timelineRef.current) {
-      const visibleTimeStart = moment(currentDate).add(-15, 'days').valueOf(); // видимые 15 дней до currentDate
-      const visibleTimeEnd = moment(currentDate).add(15, 'days').valueOf(); // 15 дней после currentDate
-
-      timelineRef.current.updateScrollCanvas(visibleTimeStart, visibleTimeEnd);
-    }
-  };
-
-  // useEffect(() => {
-  //   onVisibleTimeChange();
-  // }, [currentDate]);
 
   const handleZoomIn = () => {
     if (timelineRef.current) {
@@ -109,7 +74,21 @@ const TimeLineSinglePage = () => {
   //   // console.log('Event:', e);
   //   // console.log('Time:', time);
   // };
-  console.log(`Ref - ${timelineRef.current}`);
+  // console.log(`Ref - ${timelineRef.current}`);
+
+  const onVisibleTimeChange = () => {
+    // когда введена дата съемки, перебрасываем пользователя на CustomMarker
+    if (currentDate && timelineRef.current) {
+      const visibleTimeStart = moment(currentDate).add(-15, 'days').valueOf(); // видимые 15 дней до currentDate
+      const visibleTimeEnd = moment(currentDate).add(15, 'days').valueOf(); // 15 дней после currentDate
+
+      timelineRef.current.updateScrollCanvas(visibleTimeStart, visibleTimeEnd);
+    }
+  };
+
+  // useEffect(() => {
+  //   onVisibleTimeChange();
+  // }, [currentDate]);
 
   return (
     <div id="calendar" className="timelinecomponent">
@@ -126,6 +105,15 @@ const TimeLineSinglePage = () => {
           marginLeft: 'auto',
           marginBottom: '3px',
         }}>
+        {/* <BiPlusCircle onClick={handleZoomIn} style={{ fontSize: '24px', color: '#036bfd' }} /> */}
+        {/* <BiSolidPlusSquare
+          onClick={handleZoomIn}
+          style={{ fontSize: '28px', color: '#036bfd', cursor: 'pointer' }}
+        />
+        <BiSolidMinusSquare
+          onClick={handleZoomOut}
+          style={{ fontSize: '28px', color: '#036bfd', cursor: 'pointer' }}
+        /> */}
         <TfiZoomIn
           onClick={handleZoomIn}
           style={{ fontSize: '24px', cursor: 'pointer', color: '#131313' }}
@@ -138,13 +126,11 @@ const TimeLineSinglePage = () => {
         <FaSearchMinus onClick={handleZoomOut} style={{ fontSize: '24px', cursor: 'pointer' }} /> */}
       </div>
       <Timeline
-        groups={groupsByImage}
+        groups={reportGroups}
         items={reportItems}
         // defaultTimeStart={moment().startOf('date')}
         defaultTimeStart={moment(currentDate).add(-15, 'days').startOf('day')} //  moment().startOf('day')
         defaultTimeEnd={moment(currentDate).add(15, 'days').toDate()}
-        // defaultTimeStart={moment(currentDate).startOf('day')} //  moment().startOf('day')
-        // defaultTimeEnd={moment().startOf('day').add(1, 'month').toDate()}
         // visibleTimeStart={sliceCurrentDate || moment().startOf('day')}
         // visibleTimeEnd={moment().startOf('day').add(1, 'month').toDate()}
         // defaultTimeStart={moment().add(-12, 'hour')}
@@ -155,18 +141,19 @@ const TimeLineSinglePage = () => {
         canResize={true} // запретить изменение размера
         // canSelect={false}
         // minZoom={1000 * 60 * 60 * 24 * 90}
-        sidebarWidth={296}
+        sidebarWidth={460}
         // minZoom={moment.duration(1, 'day').asMilliseconds()}
         // maxZoom={moment.duration(5, 'year').asMilliseconds()}
         // onItemSelect={itemHandler}
-        groupRenderer={groupRendererSinglePage}
+        groupRenderer={groupRenderer}
+        itemRenderer={CustomItemTotalPage}
         minZoom={60 * 60 * 1000 * 24 * 14}
         maxZoom={1000 * 60 * 60 * 24 * 360}
         ref={timelineRef}>
         <TimelineHeaders>
           <SidebarHeader>
             {({ getRootProps }) => {
-              return <CustomSidebarHeaderWithoutColls getRootProps={getRootProps} />;
+              return <CustomSidebarHeader getRootProps={getRootProps} />;
             }}
           </SidebarHeader>
           <DateHeader unit="primaryHeader" />
@@ -192,9 +179,9 @@ const TimeLineSinglePage = () => {
           </CustomMarker>
         </TimelineMarkers>
       </Timeline>
-      {/* {open && <Calendar />} */}
+      {open && <Calendar />}
     </div>
   );
 };
 
-export default TimeLineSinglePage;
+export default TimeLineTotalPageStyled;

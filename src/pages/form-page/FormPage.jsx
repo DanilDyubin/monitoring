@@ -20,6 +20,7 @@ import { useMokRequest } from '../../hooks/useMok';
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from '../../ui/Spinner_new/Spinner';
 import PageSkeleton from '../../ui/skeletons/page-skeleton/PageSkeleton';
+import TimeLineItemsStyled from '../../components/time-line/TimeLineItemsStyled';
 
 const FormPage = () => {
   const [formValide, setFormValide] = useState(false); // локальное состояние для проверки валдности формы и активности btn
@@ -55,7 +56,8 @@ const FormPage = () => {
 
           <div style={{ marginTop: '80px' }}>
             <Subtitle />
-            <TimeLineExampleLocale data={dataTimeLine} />
+            {/* <TimeLineExampleLocale data={dataTimeLine} /> */}
+            <TimeLineItemsStyled data={dataTimeLine} />
           </div>
 
           <div style={{ marginTop: '57px' }}></div>

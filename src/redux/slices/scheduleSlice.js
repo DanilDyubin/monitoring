@@ -12,7 +12,8 @@ const initialState = {
       deviation: 0,
       height: 40,
       progress: true,
-      color: '#FF0000',
+      color: '#FF8080',
+      color_light: '#FFD9D9',
     },
     {
       id: 1,
@@ -21,7 +22,8 @@ const initialState = {
       deviation: 0,
       height: 40,
       progress: false,
-      color: '#00CC96',
+      color: '#80E6CB',
+      color_light: '#D9F8EF',
     },
     {
       id: 2,
@@ -30,7 +32,8 @@ const initialState = {
       deviation: 0,
       height: 40,
       progress: true,
-      color: '#0000FF',
+      color: '#8080FF',
+      color_light: '#D9D9FF',
     },
     {
       id: 3,
@@ -39,7 +42,8 @@ const initialState = {
       deviation: 0,
       height: 40,
       progress: true,
-      color: '#FFFF00',
+      color: '#FFFF80',
+      color_light: '#FFFFD9',
     },
     {
       id: 4,
@@ -48,7 +52,8 @@ const initialState = {
       deviation: 0,
       height: 40,
       progress: true,
-      color: '#00FFFF',
+      color: '#80FFFF',
+      color_light: '#D9FFFF',
     },
     {
       id: 5,
@@ -57,7 +62,8 @@ const initialState = {
       deviation: 0,
       height: 40,
       progress: false,
-      color: '#FF6692',
+      color: '#FFB3C9',
+      color_light: '#FFE8EF',
     },
     {
       id: 6,
@@ -66,7 +72,8 @@ const initialState = {
       deviation: 0,
       height: 40,
       progress: true,
-      color: '#A500FF',
+      color: '#D280FF',
+      color_light: '#F1D9FF',
     },
     {
       id: 7,
@@ -75,7 +82,8 @@ const initialState = {
       deviation: 0,
       height: 40,
       progress: true,
-      color: '#00A5FF',
+      color: '#80D2FF',
+      color_light: '#D9F1FF',
     },
     {
       id: 8,
@@ -84,7 +92,8 @@ const initialState = {
       deviation: 0,
       height: 40,
       progress: true,
-      color: '#A5FF00',
+      color: '#D2FF80',
+      color_light: '#F1FFD9',
     },
     {
       id: 9,
@@ -93,7 +102,8 @@ const initialState = {
       deviation: 0,
       height: 40,
       progress: true,
-      color: '#FFA629',
+      color: '#FFD394',
+      color_light: '#FFF2DF',
     },
     {
       id: 10,
@@ -102,7 +112,8 @@ const initialState = {
       deviation: 0,
       height: 40,
       progress: true,
-      color: '#52CE49',
+      color: '#A9E7A4',
+      color_light: '#E5F8E4',
     },
     // {
     //   id: 11,
@@ -170,7 +181,9 @@ export const scheduleSlice = createSlice({
           donePercent = (overTime / totalTime) * 100;
         }
 
-        findGroup.done = Math.round(donePercent);
+        findGroup.done = donePercent;
+        newItem.done = donePercent;
+        // findGroup.done = Math.round(donePercent);
       }
     },
     clearItems(state) {

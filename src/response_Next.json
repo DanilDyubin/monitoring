@@ -166,10 +166,7 @@
     "total": {
       "id": "65b9b019-9e2d-47e9-a01a-e3587dad67e0",
       "current_date": 1733097600000,
-      "images": [
-        "b086f9ca-8de3-43d8-9c21-a7b8b6ee94df",
-        "cd9bd6c2-c98a-4070-bb37-b81ba389fd02"
-      ],
+      "images": ["b086f9ca-8de3-43d8-9c21-a7b8b6ee94df", "cd9bd6c2-c98a-4070-bb37-b81ba389fd02"],
       "stages": [
         {
           "id": 1,
@@ -281,5 +278,43 @@
         }
       ]
     }
+  },
+  "some": {
+    "dimensions": {
+      "left": 1024.5333333333333,
+      "width": 813.5999996512346,
+      "collisionLeft": 1735506000000,
+      "collisionWidth": 2332799999,
+      "top": 40,
+      "order": {
+        "index": 1,
+        "group": {
+          "id": 1,
+          "title": "Шпунтовое ограждение",
+          "done": 40.74074075820505,
+          "deviation": 0,
+          "height": 40,
+          "progress": false,
+          "color": "#00CC96"
+        }
+      },
+      "stack": true,
+      "height": 30
+    },
+    "useResizeHandle": false,
+    "title": "30.12 — 25.01",
+    "canMove": false,
+    "canResizeLeft": false,
+    "canResizeRight": true,
+    "selected": false,
+    "dragging": null,
+    "dragStart": null,
+    "dragTime": null,
+    "dragGroupDelta": null,
+    "resizing": null,
+    "resizeEdge": null,
+    "resizeStart": null,
+    "resizeTime": null,
+    "width": 813.5999996512346
   }
 }

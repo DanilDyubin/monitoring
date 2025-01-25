@@ -8,8 +8,9 @@ export const transFormGroup = (group) => {
     fact: Math.round(group.factValue),
     progress: Math.round(group.progress_diff),
     height: 40,
-    // progress: true,
-    color: group.color,
+    // color: group.color,
+    color: group.calendar_vivid,
+    color_light: group.calendar_dull,
   };
 };
 
@@ -17,8 +18,9 @@ export const transFormItem = (group) => {
   return {
     id: group.id,
     group: group.id, // обязательно для привязки item к group
-    color: group.color,
+    color: group.calendar_vivid,
     current_date: moment().valueOf(),
+    plan: group.planValue,
     title:
       group.plannedStart && group.plannedEnd
         ? `${moment(group.plannedStart).format('DD.MM')} — ${moment(group.plannedEnd).format(
@@ -30,7 +32,7 @@ export const transFormItem = (group) => {
     itemProps: {
       className: 'bordernone',
       style: {
-        background: group.color,
+        background: group.calendar_dull,
         border: 'none',
       },
     },
@@ -46,7 +48,7 @@ export const transformByImageArray = (byImageArr) => {
       id: stage.id,
       title: stage.name,
       done: Math.round(stage.factValue),
-      color: stage.color,
+      color: stage.calendar_vivid,
       height: 40,
       progress: true, // поменять
     }));

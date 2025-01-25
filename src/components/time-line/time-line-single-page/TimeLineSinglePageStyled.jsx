@@ -1,4 +1,5 @@
 import { groupRendererSinglePage } from '../custom-group/CustomGroup';
+import { CustomItemSinglePage } from '../custom-items/CustomItems';
 import { CustomSidebarHeaderWithoutColls } from '../custom-sidebar-header/CustomSidebarHeader';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,7 +29,7 @@ import '../../trash/style.scss';
 
 moment.locale('ru');
 
-const TimeLineSinglePage = () => {
+const TimeLineSinglePageStyled = () => {
   //   const [groupId, setGroupId] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -160,6 +161,7 @@ const TimeLineSinglePage = () => {
         // maxZoom={moment.duration(5, 'year').asMilliseconds()}
         // onItemSelect={itemHandler}
         groupRenderer={groupRendererSinglePage}
+        itemRenderer={CustomItemSinglePage}
         minZoom={60 * 60 * 1000 * 24 * 14}
         maxZoom={1000 * 60 * 60 * 24 * 360}
         ref={timelineRef}>
@@ -197,4 +199,4 @@ const TimeLineSinglePage = () => {
   );
 };
 
-export default TimeLineSinglePage;
+export default TimeLineSinglePageStyled;
