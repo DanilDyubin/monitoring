@@ -156,7 +156,7 @@ const TimeLineSinglePageStyled = () => {
         canResize={true} // запретить изменение размера
         // canSelect={false}
         // minZoom={1000 * 60 * 60 * 24 * 90}
-        sidebarWidth={296}
+        sidebarWidth={310}
         // minZoom={moment.duration(1, 'day').asMilliseconds()}
         // maxZoom={moment.duration(5, 'year').asMilliseconds()}
         // onItemSelect={itemHandler}

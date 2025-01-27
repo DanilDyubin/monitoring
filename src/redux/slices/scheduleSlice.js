@@ -188,6 +188,7 @@ export const scheduleSlice = createSlice({
     },
     clearItems(state) {
       state.items = [];
+      state.groups = initialState.groups;
     },
     addCurrentDate(state, action) {
       state.currentDate = action.payload;
@@ -196,7 +197,6 @@ export const scheduleSlice = createSlice({
       // state.imgsIds = [];
       // state.currentDate = null;
       // state.items = [];
-      // state.groups =
       return initialState;
     },
   },
