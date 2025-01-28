@@ -169,7 +169,7 @@ export const scheduleSlice = createSlice({
         const { start_time, end_time } = action.payload;
         const current = state.currentDate;
 
-        // Проверяем границы
+        // Проверка границ
         let donePercent;
         if (current <= start_time) {
           donePercent = 0;

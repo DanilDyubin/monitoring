@@ -31,9 +31,7 @@ const FormPage = () => {
   const imgsIds = useSelector((state) => state.schedule.imgsIds);
   const form = useSelector((state) => state.report.formData);
   const currentDate = useSelector((state) => state.schedule.currentDate);
-  console.log(form);
-  console.log(currentDate);
-  const hasItemsAndImgs = items.length > 0 && imgsIds.length > 0;
+  const hasItemsAndImgs = items.length > 0 && imgsIds.length > 0; // проверяем загружены ли фото и даты на таймлайне
   const formRef = useRef();
   const dispatch = useDispatch();
 

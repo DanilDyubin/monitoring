@@ -11,7 +11,7 @@ import '../../styles/datePicker.css';
 import s from './datePicker.module.scss';
 
 const DatePicker = () => {
-  const currentDate = useSelector((state) => state.schedule.currentDate);
+  const currentDate = useSelector((state) => state.schedule.currentDate); // получаем дату съемки
   const groups = useSelector((state) => state.schedule.groups);
   const groupId = useSelector((state) => state.calendar.groupId); // получаем id группы для которой ввели даты на таймлайне
   const [selected, setSelected] = useState();
