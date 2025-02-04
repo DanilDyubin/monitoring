@@ -59,7 +59,6 @@ const FormPage = () => {
           </div>
 
           <div style={{ marginTop: '57px' }}></div>
-          {/* <button onClick={handleButtonClick}>TEST</button> */}
           <Button
             disabled={!formValide || !hasItemsAndImgs}
             title="Обработать фотографии"

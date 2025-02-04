@@ -35,3 +35,7 @@
 .rct-item-content {
   z-index: 10;
 }
+
+.rct-item .item-selected {
+  border: 2px solid var(--color-warning);
+}

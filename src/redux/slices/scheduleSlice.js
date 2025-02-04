@@ -190,6 +190,13 @@ export const scheduleSlice = createSlice({
       state.items = [];
       state.groups = initialState.groups;
     },
+    deleteItem(state, action) {
+      state.items = state.items.filter((item) => item.id !== action.payload);
+      const findGroup = state.groups.find((group) => group.id === action.payload);
+      if (findGroup) {
+        findGroup.done = 0;
+      }
+    },
     addCurrentDate(state, action) {
       state.currentDate = action.payload;
     },
@@ -202,6 +209,13 @@ export const scheduleSlice = createSlice({
   },
 });
 
-export const { addItem, addCurrentDate, addImgsIds, removeImgId, clearItems, clearSchedule } =
-  scheduleSlice.actions;
+export const {
+  addItem,
+  addCurrentDate,
+  addImgsIds,
+  removeImgId,
+  clearItems,
+  clearSchedule,
+  deleteItem,
+} = scheduleSlice.actions;
 export default scheduleSlice.reducer;

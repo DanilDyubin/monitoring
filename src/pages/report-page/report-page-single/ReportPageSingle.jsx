@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import ImageBlockSlider from '../../../components/image-block-slider/ImageBlockSlider';
+import Slider from '../../../components/slider/Slider';
 import Subtitle from '../../../components/subtitle/Subtitle';
 import TimeLineSinglePage from '../../../components/time-line/time-line-single-page/TimeLineSinglePage';
 import TimeLineSinglePageStyled from '../../../components/time-line/time-line-single-page/TimeLineSinglePageStyled';
@@ -9,7 +10,8 @@ const ReportPageSingle = () => {
   return (
     <div>
       <div>
-        <ImageBlockSlider images={images} />
+        {/* <ImageBlockSlider images={images} /> */}
+        <Slider />
         <div style={{ marginTop: '80px' }}>
           <Subtitle />
           {/* <TimeLineSinglePage /> */}

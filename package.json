@@ -2,7 +2,7 @@
   "name": "service",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://stroimprosto-msk.ru/tb/prod/stagemon_pre4",
+  "homepage": "https://stroimprosto-msk.ru/tb/prod/stagemon_pre5",
   "dependencies": {
     "@ag-media/react-pdf-table": "^2.0.0",
     "@interactjs/interactjs": "^1.10.27",
@@ -18,6 +18,7 @@
     "react-calendar-timeline": "^0.28.0",
     "react-day-picker": "^9.4.0",
     "react-dom": "^18.3.1",
+    "react-dropzone": "^14.3.5",
     "react-hook-form": "^7.54.1",
     "react-icons": "^5.4.0",
     "react-redux": "^9.2.0",
